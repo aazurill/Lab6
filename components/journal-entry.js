@@ -75,13 +75,12 @@ class JournalEntry extends HTMLElement {
 
     // CODE GOES HERE
 
-    let title = this.shadowRoot.querySelector('.entry');
-    let date = this.shadowRoot.querySelector('.entry-date')
-    let content = this.shadowRoot.querySelector('.entry-content');
+    let title = this.shadowRoot.querySelector('h2')
+    let date = this.shadowRoot.querySelectorAll('p')[0]
+    let content = this.shadowRoot.querySelectorAll('p')[1]
     title.innerHTML = entry.title;
     date.innerHTML = entry.date;
     content.innerHTML = entry.content;
-
 
     if (entry.image) {
       let entryImage;
