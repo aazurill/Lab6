@@ -1,4 +1,5 @@
 // script.js
+/* eslint-disable */
 
 window.logCheckpoints = true // set to true/false to add/remove checkpoint logs to clear room for your own debugging
 
@@ -8,35 +9,31 @@ window.logCheckpoints = true // set to true/false to add/remove checkpoint logs 
 document.addEventListener('DOMContentLoaded', () => {
   /* TODO:
    * 1. fetch json results from https://cse110lab6.herokuapp.com/entries
-   * 2. for each entry, create and append a custom HTML element 
-   *    using a web component called JournalEntry to a 
-   *    list of journal entries in inside <main></main>. 
-   *    
-   * Hint: don't forget to set the entry property inside JournalEntry to 
+   * 2. for each entry, create and append a custom HTML element
+   *    using a web component called JournalEntry to a
+   *    list of journal entries in inside <main></main>.
+   *
+   * Hint: don't forget to set the entry property inside JournalEntry to
    * the current entry for each journal-entry element.
    */
 
-  let url = ""  // SET URL 
+  let url = "https://cse110lab6.herokuapp.com/entries"  // SET URL
 
   fetch(url)
-    .then( /* FILL IN RESPONSE HANDLING HERE */ )
+    .then(response => response.json())
     .then(entries => {
       entries.forEach((entry) => {
-       
-        let newPost;  
+
+        let newPost;
 
 
         // CODE GOES HERE vvv
-        
+        // For each entry in entries, create journal-entry component
+        newPost = document.createElement('journal-entry');
+        newPost.entry = entry;
 
-
-
-
-
-
-
-        // CODE GOES HERE ^^^
-
+        let entryCollection = document.getElementsByTagName('main');
+        entryCollection[0].append(newPost);
 
 
         /* ------------- do not edit this code, it is for your debugging purposes ------------- */
@@ -51,8 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
   })
   .catch(error => {
     console.log(`%cresult of fetch is an error: \n"${error}"`, 'color: red');
-  });    
-   
+  });
+
 });
 
 

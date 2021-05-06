@@ -1,4 +1,5 @@
 // <journal-entry> custom web component
+/* eslint-disable */
 class JournalEntry extends HTMLElement {
   constructor() {
     super();
@@ -51,7 +52,7 @@ class JournalEntry extends HTMLElement {
 
     // create a shadow root for this web component
     this.attachShadow({ mode: 'open' })
-    // attach cloned content of template to shadow DOM 
+    // attach cloned content of template to shadow DOM
     this.shadowRoot.appendChild(template.content.cloneNode(true))
   }
 
@@ -68,11 +69,19 @@ class JournalEntry extends HTMLElement {
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
    */
   set entry(entry) {
-    /* 
+    /*
      * TODO: set the entry title, date, and content fields in this component
      */
-    
+
     // CODE GOES HERE
+
+    let title = this.shadowRoot.querySelector('.entry');
+    let date = this.shadowRoot.querySelector('.entry-date')
+    let content = this.shadowRoot.querySelector('.entry-content');
+    title.innerHTML = entry.title;
+    date.innerHTML = entry.date;
+    content.innerHTML = entry.content;
+
 
     if (entry.image) {
       let entryImage;
@@ -84,9 +93,13 @@ class JournalEntry extends HTMLElement {
        */
 
       // CODE GOES HERE vvv
+      entryImage = document.createElement('img');
+      entryImage.setAttribute('src', entry.image.src);
+      entryImage.setAttribute('alt', entry.image.alt);
+      entryImage.setAttribute('class', 'entry-image');
 
-
-
+      // Stick in the end
+      this.shadowRoot.querySelector('article').append(entryImage);
 
 
       // CODE GOES HERE ^^^
@@ -110,16 +123,20 @@ class JournalEntry extends HTMLElement {
        */
 
       // CODE GOES HERE vvv
-
+      entryAudio = document.createElement('audio');
+      entryAudio.setAttribute('class', 'entry-audio');
+      entryAudio.setAttribute('src', entry.audio);
+      entryAudio.setAttribute('controls', true);
+      this.shadowRoot.querySelector('article').append(entryAudio);
 
 
 
 
 
       // CODE GOES HERE ^^^
-      
 
-      
+
+
       /* ------------- do not edit this code, it is for your debugging purposes ------------- */
       try {
         window.logCheckpoint('"entryAudio"', exampleAudio, entryAudio);
@@ -143,10 +160,10 @@ class JournalEntry extends HTMLElement {
 }
 
 /*
- * Define a custom element for the JournalEntry web component, 
+ * Define a custom element for the JournalEntry web component,
  * where 'journal-entry' is the string that represents this element.
  * https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements
- */ 
+ */
 customElements.define('journal-entry', JournalEntry);
 
 /**
